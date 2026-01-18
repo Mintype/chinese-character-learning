@@ -17,6 +17,7 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "HanziLern - Learn Chinese Characters",
   description: "Interactive platform to learn and practice Chinese characters",
+  viewport: "width=device-width, initial-scale=1.0",
 };
 
 export default function RootLayout({

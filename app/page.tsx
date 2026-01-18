@@ -44,13 +44,13 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-red-50 to-red-100 dark:from-gray-900 dark:to-gray-800">
       {/* Navigation */}
-      <nav className="flex justify-between items-center px-8 py-6">
-        <h1 className="text-3xl font-bold text-red-600 dark:text-red-400">HanziLern</h1>
-        <div className="space-x-4">
+      <nav className="flex justify-between items-center px-4 sm:px-6 md:px-8 py-4 sm:py-6 gap-4">
+        <h1 className="text-2xl sm:text-3xl font-bold text-red-600 dark:text-red-400 flex-shrink-0">HanziLern</h1>
+        <div className="flex gap-2 sm:gap-4 flex-wrap justify-end">
           {!checkingAuth && isAuthenticated ? (
             <Link
               href="/dashboard"
-              className="px-6 py-3 bg-red-600 text-white rounded-lg hover:bg-red-700 transition"
+              className="px-3 sm:px-6 py-2 sm:py-3 text-sm sm:text-base bg-red-600 text-white rounded-lg hover:bg-red-700 transition"
             >
               Dashboard
             </Link>
@@ -59,11 +59,11 @@ export default function Home() {
               <button
                 onClick={handleGoogleSignIn}
                 disabled={loading}
-                className="px-6 py-2 text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-slate-700 rounded-lg transition disabled:opacity-50 disabled:cursor-not-allowed"
+                className="px-3 sm:px-6 py-2 text-sm sm:text-base text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-slate-700 rounded-lg transition disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {loading ? 'Signing in...' : 'Sign In'}
               </button>
-              <button className="px-6 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition">
+              <button className="px-3 sm:px-6 py-2 text-sm sm:text-base bg-red-600 text-white rounded-lg hover:bg-red-700 transition">
                 Get Started
               </button>
             </>
@@ -72,42 +72,42 @@ export default function Home() {
       </nav>
 
       {/* Hero Section */}
-      <div className="max-w-6xl mx-auto px-8 py-20">
-        <div className="grid grid-cols-2 gap-12 items-center">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 md:px-8 py-8 sm:py-12 md:py-20">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center">
           {/* Left Content */}
           <div>
-            <h2 className="text-5xl font-bold text-slate-900 dark:text-white mb-6">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-slate-900 dark:text-white mb-4 sm:mb-6">
               Master Chinese Characters Through Writing
             </h2>
-            <p className="text-xl text-slate-600 dark:text-slate-300 mb-8">
+            <p className="text-base sm:text-lg md:text-xl text-slate-600 dark:text-slate-300 mb-6 sm:mb-8">
               Write Hanzi characters, earn levels, and unlock achievements. Make learning fun with our gamified approach to character mastery.
             </p>
             
             {/* Features */}
-            <div className="space-y-4 mb-10">
+            <div className="space-y-3 sm:space-y-4 mb-8 sm:mb-10">
               <div className="flex items-center space-x-3">
-                <span className="text-2xl">✏️</span>
-                <span className="text-lg text-slate-700 dark:text-slate-200">Write characters with precision</span>
+                <span className="text-xl sm:text-2xl flex-shrink-0">✏️</span>
+                <span className="text-base sm:text-lg text-slate-700 dark:text-slate-200">Write characters with precision</span>
               </div>
               <div className="flex items-center space-x-3">
-                <span className="text-2xl">⭐</span>
-                <span className="text-lg text-slate-700 dark:text-slate-200">Earn levels and badges</span>
+                <span className="text-xl sm:text-2xl flex-shrink-0">⭐</span>
+                <span className="text-base sm:text-lg text-slate-700 dark:text-slate-200">Earn levels and badges</span>
               </div>
               <div className="flex items-center space-x-3">
-                <span className="text-2xl">📈</span>
-                <span className="text-lg text-slate-700 dark:text-slate-200">Track your progress</span>
+                <span className="text-xl sm:text-2xl flex-shrink-0">📈</span>
+                <span className="text-base sm:text-lg text-slate-700 dark:text-slate-200">Track your progress</span>
               </div>
               <div className="flex items-center space-x-3">
-                <span className="text-2xl">🏆</span>
-                <span className="text-lg text-slate-700 dark:text-slate-200">Compete with others</span>
+                <span className="text-xl sm:text-2xl flex-shrink-0">🏆</span>
+                <span className="text-base sm:text-lg text-slate-700 dark:text-slate-200">Compete with others</span>
               </div>
             </div>
 
-            <div className="space-x-4">
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
               {isAuthenticated ? (
                 <Link
                   href="/dashboard"
-                  className="px-8 py-5 bg-red-600 text-white text-lg font-semibold rounded-lg hover:bg-red-700 transition"
+                  className="px-6 sm:px-8 py-3 sm:py-4 bg-red-600 text-white text-base sm:text-lg font-semibold rounded-lg hover:bg-red-700 transition text-center"
                 >
                   Dashboard
                 </Link>
@@ -115,37 +115,37 @@ export default function Home() {
                 <button
                   onClick={handleGoogleSignIn}
                   disabled={loading}
-                  className="px-8 py-4 bg-red-600 text-white text-lg font-semibold rounded-lg hover:bg-red-700 transition disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="px-6 sm:px-8 py-3 sm:py-4 bg-red-600 text-white text-base sm:text-lg font-semibold rounded-lg hover:bg-red-700 transition disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {loading ? 'Signing in...' : 'Start Learning'}
                 </button>
               )}
-              <button className="px-8 py-4 border-2 border-red-600 text-red-600 dark:text-red-400 dark:border-red-400 text-lg font-semibold rounded-lg hover:bg-red-50 dark:hover:bg-slate-700 transition">
+              <button className="px-6 sm:px-8 py-3 sm:py-4 border-2 border-red-600 text-red-600 dark:text-red-400 dark:border-red-400 text-base sm:text-lg font-semibold rounded-lg hover:bg-red-50 dark:hover:bg-slate-700 transition">
                 Learn More
               </button>
             </div>
           </div>
 
           {/* Right - Visual Section */}
-          <div className="bg-white dark:bg-slate-800 rounded-2xl p-8 shadow-xl">
+          <div className="bg-white dark:bg-slate-800 rounded-2xl p-6 sm:p-8 shadow-xl">
             <div className="text-center">
-              <div className="bg-gradient-to-br from-red-100 to-red-100 dark:from-red-900 dark:to-red-900 rounded-xl p-12 mb-6">
-                <div className="text-6xl font-bold text-red-600 dark:text-red-300">书</div>
-                <p className="text-sm text-slate-600 dark:text-slate-200 mt-2">Write this character</p>
+              <div className="bg-gradient-to-br from-red-100 to-red-100 dark:from-red-900 dark:to-red-900 rounded-xl p-8 sm:p-12 mb-6">
+                <div className="text-5xl sm:text-6xl font-bold text-red-600 dark:text-red-300">书</div>
+                <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-200 mt-2">Write this character</p>
               </div>
               
-              <div className="grid grid-cols-3 gap-4">
-                <div className="bg-yellow-50 dark:bg-yellow-900 rounded-lg p-4">
-                  <span className="text-3xl">⭐</span>
-                  <p className="text-sm font-semibold text-slate-700 dark:text-slate-200 mt-2">50 Mastered</p>
+              <div className="grid grid-cols-3 gap-2 sm:gap-4">
+                <div className="bg-yellow-50 dark:bg-yellow-900 rounded-lg p-3 sm:p-4">
+                  <span className="text-2xl sm:text-3xl">⭐</span>
+                  <p className="text-xs sm:text-sm font-semibold text-slate-700 dark:text-slate-200 mt-2">50 Mastered</p>
                 </div>
-                <div className="bg-purple-50 dark:bg-purple-900 rounded-lg p-4">
-                  <span className="text-3xl">🔥</span>
-                  <p className="text-sm font-semibold text-slate-700 dark:text-slate-200 mt-2">5 Streak</p>
+                <div className="bg-purple-50 dark:bg-purple-900 rounded-lg p-3 sm:p-4">
+                  <span className="text-2xl sm:text-3xl">🔥</span>
+                  <p className="text-xs sm:text-sm font-semibold text-slate-700 dark:text-slate-200 mt-2">5 Streak</p>
                 </div>
-                <div className="bg-green-50 dark:bg-green-900 rounded-lg p-4">
-                  <span className="text-3xl">🎯</span>
-                  <p className="text-sm font-semibold text-slate-700 dark:text-slate-200 mt-2">Level 12</p>
+                <div className="bg-green-50 dark:bg-green-900 rounded-lg p-3 sm:p-4">
+                  <span className="text-2xl sm:text-3xl">🎯</span>
+                  <p className="text-xs sm:text-sm font-semibold text-slate-700 dark:text-slate-200 mt-2">Level 12</p>
                 </div>
               </div>
             </div>

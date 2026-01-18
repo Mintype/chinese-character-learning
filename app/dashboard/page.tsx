@@ -90,60 +90,60 @@ export default function Dashboard() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-red-50 to-red-100 dark:from-gray-900 dark:to-gray-800">
       {/* Main Content */}
-      <div className="max-w-7xl mx-auto px-8 py-12">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 py-6 sm:py-8 md:py-12">
         {/* Header Stats */}
-        <div className="grid grid-cols-4 gap-6 mb-12">
-          <div className="bg-white dark:bg-slate-800 rounded-xl p-6 shadow-lg">
-            <div className="text-sm text-slate-600 dark:text-slate-400 font-semibold mb-2">LEVEL</div>
-            <div className="text-5xl font-bold text-red-600 dark:text-red-400">{user.level}</div>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 md:gap-6 mb-8 md:mb-12">
+          <div className="bg-white dark:bg-slate-800 rounded-xl p-4 sm:p-6 shadow-lg">
+            <div className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 font-semibold mb-2">LEVEL</div>
+            <div className="text-3xl sm:text-4xl md:text-5xl font-bold text-red-600 dark:text-red-400">{user.level}</div>
             <div className="text-xs text-slate-500 dark:text-slate-500 mt-2">Next: 50 characters</div>
           </div>
           
-          <div className="bg-white dark:bg-slate-800 rounded-xl p-6 shadow-lg">
-            <div className="text-sm text-slate-600 dark:text-slate-400 font-semibold mb-2">MASTERED</div>
-            <div className="text-5xl font-bold text-green-600 dark:text-green-400">{user.mastered}</div>
+          <div className="bg-white dark:bg-slate-800 rounded-xl p-4 sm:p-6 shadow-lg">
+            <div className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 font-semibold mb-2">MASTERED</div>
+            <div className="text-3xl sm:text-4xl md:text-5xl font-bold text-green-600 dark:text-green-400">{user.mastered}</div>
             <div className="text-xs text-slate-500 dark:text-slate-500 mt-2">Ready to go</div>
           </div>
 
-          <div className="bg-white dark:bg-slate-800 rounded-xl p-6 shadow-lg">
-            <div className="text-sm text-slate-600 dark:text-slate-400 font-semibold mb-2">LEARNING</div>
-            <div className="text-5xl font-bold text-yellow-600 dark:text-yellow-400">{user.learning}</div>
+          <div className="bg-white dark:bg-slate-800 rounded-xl p-4 sm:p-6 shadow-lg">
+            <div className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 font-semibold mb-2">LEARNING</div>
+            <div className="text-3xl sm:text-4xl md:text-5xl font-bold text-yellow-600 dark:text-yellow-400">{user.learning}</div>
             <div className="text-xs text-slate-500 dark:text-slate-500 mt-2">In progress</div>
           </div>
 
-          <div className="bg-white dark:bg-slate-800 rounded-xl p-6 shadow-lg">
-            <div className="text-sm text-slate-600 dark:text-slate-400 font-semibold mb-2">STREAK 🔥</div>
-            <div className="text-5xl font-bold text-orange-500">{streak}</div>
+          <div className="bg-white dark:bg-slate-800 rounded-xl p-4 sm:p-6 shadow-lg">
+            <div className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 font-semibold mb-2">STREAK 🔥</div>
+            <div className="text-3xl sm:text-4xl md:text-5xl font-bold text-orange-500">{streak}</div>
             <div className="text-xs text-slate-500 dark:text-slate-500 mt-2">Days in a row</div>
           </div>
         </div>
 
-        <div className="grid grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
           {/* Main Writing Area */}
-          <div className="col-span-2">
-            <div className="bg-white dark:bg-slate-800 rounded-2xl p-8 shadow-xl">
-              <div className="text-center mb-8">
-                <p className="text-slate-600 dark:text-slate-400 text-sm font-semibold uppercase mb-4">Current Character </p>
-                <div className="bg-gradient-to-br from-red-100 to-red-50 dark:from-red-900 dark:to-red-800 rounded-xl p-16 mb-6 border-4 border-red-200 dark:border-red-700">
-                  <div className="text-8xl font-bold text-red-600 dark:text-red-300">{currentCharacter.character}</div>
+          <div className="md:col-span-2">
+            <div className="bg-white dark:bg-slate-800 rounded-2xl p-4 sm:p-6 md:p-8 shadow-xl">
+              <div className="text-center mb-6 sm:mb-8">
+                <p className="text-slate-600 dark:text-slate-400 text-xs sm:text-sm font-semibold uppercase mb-3 sm:mb-4">Current Character </p>
+                <div className="bg-gradient-to-br from-red-100 to-red-50 dark:from-red-900 dark:to-red-800 rounded-xl p-8 sm:p-12 md:p-16 mb-4 sm:mb-6 border-4 border-red-200 dark:border-red-700">
+                  <div className="text-5xl sm:text-6xl md:text-8xl font-bold text-red-600 dark:text-red-300">{currentCharacter.character}</div>
                 </div>
-                <div className="grid grid-cols-3 gap-4 text-center">
+                <div className="grid grid-cols-3 gap-2 sm:gap-4 text-center">
                   <div>
-                    <p className="text-slate-600 dark:text-slate-400 text-sm">PINYIN</p>
-                    <p className="text-xl font-bold text-slate-900 dark:text-white">{currentCharacter.pinyin}</p>
+                    <p className="text-slate-600 dark:text-slate-400 text-xs sm:text-sm">PINYIN</p>
+                    <p className="text-base sm:text-lg md:text-xl font-bold text-slate-900 dark:text-white">{currentCharacter.pinyin}</p>
                   </div>
                   <div>
-                    <p className="text-slate-600 dark:text-slate-400 text-sm">MEANING</p>
-                    <p className="text-xl font-bold text-slate-900 dark:text-white">{currentCharacter.meaning}</p>
+                    <p className="text-slate-600 dark:text-slate-400 text-xs sm:text-sm">MEANING</p>
+                    <p className="text-base sm:text-lg md:text-xl font-bold text-slate-900 dark:text-white">{currentCharacter.meaning}</p>
                   </div>
                   <div>
-                    <p className="text-slate-600 dark:text-slate-400 text-sm">STATE</p>
-                    <p className="text-xl font-bold uppercase text-yellow-600 dark:text-yellow-400">{currentCharacter.state}</p>
+                    <p className="text-slate-600 dark:text-slate-400 text-xs sm:text-sm">STATE</p>
+                    <p className="text-xs sm:text-sm md:text-base font-bold uppercase text-yellow-600 dark:text-yellow-400">{currentCharacter.state}</p>
                   </div>
                 </div>
               </div>
 
-              <div className="bg-gray-100 dark:bg-slate-700 rounded-xl p-8 flex items-center justify-center mb-6">
+              <div className="bg-gray-100 dark:bg-slate-700 rounded-xl p-4 sm:p-6 md:p-8 flex items-center justify-center mb-4 sm:mb-6 overflow-x-auto">
                 <HanziCanvas 
                   character={currentCharacter.character}
                   onComplete={handleCharacterComplete}
@@ -155,7 +155,7 @@ export default function Dashboard() {
               <div className="flex gap-4">
                 <button 
                   disabled={!isCharacterComplete}
-                  className={`flex-1 px-8 py-4 font-bold rounded-lg transition ${
+                  className={`flex-1 px-6 sm:px-8 py-3 sm:py-4 font-bold rounded-lg transition text-sm sm:text-base ${
                     isCharacterComplete 
                       ? 'bg-red-600 text-white hover:bg-red-700 cursor-pointer' 
                       : 'bg-gray-300 text-gray-500 cursor-not-allowed'
@@ -170,8 +170,8 @@ export default function Dashboard() {
           {/* Sidebar */}
           <div className="space-y-6">
             {/* Recent Progress */}
-            <div className="bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-xl">
-              <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-4">Recent Characters</h3>
+            <div className="bg-white dark:bg-slate-800 rounded-2xl p-4 sm:p-6 shadow-xl">
+              <h3 className="text-base sm:text-lg font-bold text-slate-900 dark:text-white mb-4">Recent Characters</h3>
               <div className="space-y-3">
                 {recentCharacters.length > 0 ? (
                   recentCharacters.map((item, idx) => {
@@ -181,44 +181,31 @@ export default function Dashboard() {
                     };
                     return (
                       <div key={idx} className="flex items-center gap-3 p-3 bg-red-50 dark:bg-red-900/30 rounded-lg">
-                        <div className="text-3xl font-bold text-red-600 dark:text-red-300 flex-shrink-0">{item.char}</div>
-                        <div className="flex-1">
-                          <p className="font-semibold text-slate-900 dark:text-white text-sm">{item.meaning}</p>
+                        <div className="text-2xl sm:text-3xl font-bold text-red-600 dark:text-red-300 flex-shrink-0">{item.char}</div>
+                        <div className="flex-1 min-w-0">
+                          <p className="font-semibold text-slate-900 dark:text-white text-xs sm:text-sm truncate">{item.meaning}</p>
                           <p className={`text-xs px-2 py-1 rounded w-fit ${stateColors[item.state as keyof typeof stateColors]}`}>{item.state}</p>
                         </div>
                       </div>
                     );
                   })
                 ) : (
-                  <p className="text-slate-600 dark:text-slate-400 text-sm">No characters practiced yet</p>
+                  <p className="text-slate-600 dark:text-slate-400 text-xs sm:text-sm">No characters practiced yet</p>
                 )}
               </div>
             </div>
 
             {/* Achievements */}
-            <div className="bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-xl">
-              <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-4">Badges</h3>
+            <div className="bg-white dark:bg-slate-800 rounded-2xl p-4 sm:p-6 shadow-xl">
+              <h3 className="text-base sm:text-lg font-bold text-slate-900 dark:text-white mb-4">Badges</h3>
               <div className="grid grid-cols-3 gap-3">
-                {/* <div className="flex flex-col items-center p-3 bg-yellow-50 dark:bg-yellow-900/30 rounded-lg">
-                  <span className="text-3xl mb-1">⭐</span>
-                  <p className="text-xs text-center text-slate-600 dark:text-slate-400">Rising Star</p>
-                </div>
-                <div className="flex flex-col items-center p-3 bg-purple-50 dark:bg-purple-900/30 rounded-lg">
-                  <span className="text-3xl mb-1">🔥</span>
-                  <p className="text-xs text-center text-slate-600 dark:text-slate-400">On Fire</p>
-                </div>
-                <div className="flex flex-col items-center p-3 bg-blue-50 dark:bg-blue-900/30 rounded-lg">
-                  <span className="text-3xl mb-1">🎯</span>
-                  <p className="text-xs text-center text-slate-600 dark:text-slate-400">Focused</p>
-                </div> */}
-                {/* say no badges */}
-                  <p className="col-span-3 text-slate-600 dark:text-slate-400 text-sm">No badges earned yet</p>
+                  <p className="col-span-3 text-slate-600 dark:text-slate-400 text-xs sm:text-sm">No badges earned yet</p>
               </div>
             </div>
 
             {/* Progress Bar */}
-            <div className="bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-xl">
-              <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-4">Level Progress</h3>
+            <div className="bg-white dark:bg-slate-800 rounded-2xl p-4 sm:p-6 shadow-xl">
+              <h3 className="text-base sm:text-lg font-bold text-slate-900 dark:text-white mb-4">Level Progress</h3>
               <div className="flex gap-1 mb-3">
                 <div className="flex-1 bg-green-500 rounded-full h-2" style={{ width: `${(user.mastered / 67) * 100}%` }}></div>
                 <div className="flex-1 bg-yellow-500 rounded-full h-2" style={{ width: `${(user.learning / 67) * 100}%` }}></div>
