@@ -12,7 +12,7 @@ export default function Profile() {
     learning: 0,
     streak: 0,
     totalPracticed: 0,
-    avatar_url: null,
+    avatar_url: null as string | null,
   });
   const [badges, setBadges] = useState<any[]>([]);
   const [userBadges, setUserBadges] = useState<any[]>([]);

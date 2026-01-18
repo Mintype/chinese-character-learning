@@ -9,7 +9,7 @@ export default function Dashboard() {
   const [streak, setStreak] = useState(0);
   const [currentCharacter] = useState({ character: '书', pinyin: 'shū', meaning: 'book', state: 'learning' });
   const [isCharacterComplete, setIsCharacterComplete] = useState(false);
-  const [recentCharacters, setRecentCharacters] = useState([]);
+  const [recentCharacters, setRecentCharacters] = useState<Array<{ char: string; meaning: string; state: string }>>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
