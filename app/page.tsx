@@ -72,42 +72,42 @@ export default function Home() {
       </nav>
 
       {/* Hero Section */}
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 md:px-8 py-8 sm:py-12 md:py-20">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 md:px-8 py-6 sm:py-12 md:py-20">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-12 items-center">
           {/* Left Content */}
           <div>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-slate-900 dark:text-white mb-4 sm:mb-6">
+            <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold text-slate-900 dark:text-white mb-3 sm:mb-6">
               Master Chinese Characters Through Writing
             </h2>
-            <p className="text-base sm:text-lg md:text-xl text-slate-600 dark:text-slate-300 mb-6 sm:mb-8">
+            <p className="text-sm sm:text-base md:text-xl text-slate-600 dark:text-slate-300 mb-4 sm:mb-8">
               Write Hanzi characters, earn levels, and unlock achievements. Make learning fun with our gamified approach to character mastery.
             </p>
             
             {/* Features */}
-            <div className="space-y-3 sm:space-y-4 mb-8 sm:mb-10">
-              <div className="flex items-center space-x-3">
-                <span className="text-xl sm:text-2xl flex-shrink-0">✏️</span>
-                <span className="text-base sm:text-lg text-slate-700 dark:text-slate-200">Write characters with precision</span>
+            <div className="space-y-2 sm:space-y-4 mb-6 sm:mb-10">
+              <div className="flex items-center space-x-2 sm:space-x-3">
+                <span className="text-lg sm:text-2xl flex-shrink-0">✏️</span>
+                <span className="text-sm sm:text-lg text-slate-700 dark:text-slate-200">Write characters with precision</span>
               </div>
-              <div className="flex items-center space-x-3">
-                <span className="text-xl sm:text-2xl flex-shrink-0">⭐</span>
-                <span className="text-base sm:text-lg text-slate-700 dark:text-slate-200">Earn levels and badges</span>
+              <div className="flex items-center space-x-2 sm:space-x-3">
+                <span className="text-lg sm:text-2xl flex-shrink-0">⭐</span>
+                <span className="text-sm sm:text-lg text-slate-700 dark:text-slate-200">Earn levels and badges</span>
               </div>
-              <div className="flex items-center space-x-3">
-                <span className="text-xl sm:text-2xl flex-shrink-0">📈</span>
-                <span className="text-base sm:text-lg text-slate-700 dark:text-slate-200">Track your progress</span>
+              <div className="flex items-center space-x-2 sm:space-x-3">
+                <span className="text-lg sm:text-2xl flex-shrink-0">📈</span>
+                <span className="text-sm sm:text-lg text-slate-700 dark:text-slate-200">Track your progress</span>
               </div>
-              <div className="flex items-center space-x-3">
-                <span className="text-xl sm:text-2xl flex-shrink-0">🏆</span>
-                <span className="text-base sm:text-lg text-slate-700 dark:text-slate-200">Compete with others</span>
+              <div className="flex items-center space-x-2 sm:space-x-3">
+                <span className="text-lg sm:text-2xl flex-shrink-0">🏆</span>
+                <span className="text-sm sm:text-lg text-slate-700 dark:text-slate-200">Compete with others</span>
               </div>
             </div>
 
-            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
+            <div className="flex flex-col w-full gap-2 sm:gap-4">
               {isAuthenticated ? (
                 <Link
                   href="/dashboard"
-                  className="px-6 sm:px-8 py-3 sm:py-4 bg-red-600 text-white text-base sm:text-lg font-semibold rounded-lg hover:bg-red-700 transition text-center"
+                  className="w-full px-4 sm:px-8 py-3 sm:py-4 bg-red-600 text-white text-base sm:text-lg font-semibold rounded-lg hover:bg-red-700 transition text-center"
                 >
                   Dashboard
                 </Link>
@@ -115,37 +115,37 @@ export default function Home() {
                 <button
                   onClick={handleGoogleSignIn}
                   disabled={loading}
-                  className="px-6 sm:px-8 py-3 sm:py-4 bg-red-600 text-white text-base sm:text-lg font-semibold rounded-lg hover:bg-red-700 transition disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="w-full px-4 sm:px-8 py-3 sm:py-4 bg-red-600 text-white text-base sm:text-lg font-semibold rounded-lg hover:bg-red-700 transition disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {loading ? 'Signing in...' : 'Start Learning'}
                 </button>
               )}
-              <button className="px-6 sm:px-8 py-3 sm:py-4 border-2 border-red-600 text-red-600 dark:text-red-400 dark:border-red-400 text-base sm:text-lg font-semibold rounded-lg hover:bg-red-50 dark:hover:bg-slate-700 transition">
+              <button className="w-full px-4 sm:px-8 py-3 sm:py-4 border-2 border-red-600 text-red-600 dark:text-red-400 dark:border-red-400 text-base sm:text-lg font-semibold rounded-lg hover:bg-red-50 dark:hover:bg-slate-700 transition">
                 Learn More
               </button>
             </div>
           </div>
 
           {/* Right - Visual Section */}
-          <div className="bg-white dark:bg-slate-800 rounded-2xl p-6 sm:p-8 shadow-xl">
+          <div className="bg-white dark:bg-slate-800 rounded-2xl p-4 sm:p-8 shadow-xl mt-4 md:mt-0">
             <div className="text-center">
-              <div className="bg-gradient-to-br from-red-100 to-red-100 dark:from-red-900 dark:to-red-900 rounded-xl p-8 sm:p-12 mb-6">
-                <div className="text-5xl sm:text-6xl font-bold text-red-600 dark:text-red-300">书</div>
+              <div className="bg-gradient-to-br from-red-100 to-red-100 dark:from-red-900 dark:to-red-900 rounded-xl p-6 sm:p-12 mb-4 sm:mb-6">
+                <div className="text-4xl sm:text-6xl font-bold text-red-600 dark:text-red-300">书</div>
                 <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-200 mt-2">Write this character</p>
               </div>
               
               <div className="grid grid-cols-3 gap-2 sm:gap-4">
-                <div className="bg-yellow-50 dark:bg-yellow-900 rounded-lg p-3 sm:p-4">
-                  <span className="text-2xl sm:text-3xl">⭐</span>
-                  <p className="text-xs sm:text-sm font-semibold text-slate-700 dark:text-slate-200 mt-2">50 Mastered</p>
+                <div className="bg-yellow-50 dark:bg-yellow-900 rounded-lg p-2 sm:p-4">
+                  <span className="text-xl sm:text-3xl">⭐</span>
+                  <p className="text-xs font-semibold text-slate-700 dark:text-slate-200 mt-1 sm:mt-2">50 Mastered</p>
                 </div>
-                <div className="bg-purple-50 dark:bg-purple-900 rounded-lg p-3 sm:p-4">
-                  <span className="text-2xl sm:text-3xl">🔥</span>
-                  <p className="text-xs sm:text-sm font-semibold text-slate-700 dark:text-slate-200 mt-2">5 Streak</p>
+                <div className="bg-purple-50 dark:bg-purple-900 rounded-lg p-2 sm:p-4">
+                  <span className="text-xl sm:text-3xl">🔥</span>
+                  <p className="text-xs font-semibold text-slate-700 dark:text-slate-200 mt-1 sm:mt-2">5 Streak</p>
                 </div>
-                <div className="bg-green-50 dark:bg-green-900 rounded-lg p-3 sm:p-4">
-                  <span className="text-2xl sm:text-3xl">🎯</span>
-                  <p className="text-xs sm:text-sm font-semibold text-slate-700 dark:text-slate-200 mt-2">Level 12</p>
+                <div className="bg-green-50 dark:bg-green-900 rounded-lg p-2 sm:p-4">
+                  <span className="text-xl sm:text-3xl">🎯</span>
+                  <p className="text-xs font-semibold text-slate-700 dark:text-slate-200 mt-1 sm:mt-2">Level 12</p>
                 </div>
               </div>
             </div>

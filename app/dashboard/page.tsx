@@ -7,7 +7,7 @@ import HanziCanvas from '../components/HanziCanvas';
 export default function Dashboard() {
   const [user, setUser] = useState({ name: 'Learner', level: 1, mastered: 0, learning: 0 });
   const [streak, setStreak] = useState(0);
-  const [currentCharacter] = useState({ character: '书', pinyin: 'shū', meaning: 'book', state: 'learning' });
+  const [currentCharacter, setCurrentCharacter] = useState({ id: '', character: '', pinyin: '', meaning: '', state: '' });
   const [isCharacterComplete, setIsCharacterComplete] = useState(false);
   const [recentCharacters, setRecentCharacters] = useState<Array<{ char: string; meaning: string; state: string }>>([]);
   const [loading, setLoading] = useState(true);
@@ -46,6 +46,45 @@ export default function Dashboard() {
           setStreak(profileData.streak);
         }
 
+        // Fetch current character - first try to get one in "learning" state
+        const { data: learningData } = await supabase
+          .from('user_character_progress')
+          .select('character_id, state, characters(id, character, pinyin, meaning)')
+          .eq('user_id', authUser.id)
+          .eq('state', 'learning')
+          .order('last_practiced', { ascending: true })
+          .limit(1)
+          .single();
+
+        if (learningData?.characters && Array.isArray(learningData.characters) && learningData.characters.length > 0) {
+          const char = learningData.characters[0];
+          setCurrentCharacter({
+            id: char.id,
+            character: char.character,
+            pinyin: char.pinyin,
+            meaning: char.meaning,
+            state: 'learning',
+          });
+        } else {
+          // If no learning characters, get the next new one
+          const { data: newCharData } = await supabase
+            .from('characters')
+            .select('id, character, pinyin, meaning')
+            .order('frequency_rank', { ascending: true })
+            .limit(1)
+            .single();
+
+          if (newCharData) {
+            setCurrentCharacter({
+              id: newCharData.id,
+              character: newCharData.character,
+              pinyin: newCharData.pinyin,
+              meaning: newCharData.meaning,
+              state: 'new',
+            });
+          }
+        }
+
         // Fetch recent characters
         const { data: recentData, error: recentError } = await supabase
           .from('user_character_progress')
@@ -74,9 +113,110 @@ export default function Dashboard() {
     fetchUserStats();
   }, []);
 
-  const handleCharacterComplete = useCallback((data: any) => {
+  const handleCharacterComplete = useCallback(async (data: any) => {
     console.log('Character completed!', data);
     setIsCharacterComplete(true);
+    
+    try {
+      const { data: { user: authUser } } = await supabase.auth.getUser();
+      
+      if (!authUser || !currentCharacter.id) {
+        return;
+      }
+
+      // Call complete_character function with character ID (UUID)
+      const { error: completeError } = await supabase
+        .rpc('complete_character', {
+          p_user_id: authUser.id,
+          p_character_id: currentCharacter.id,
+        });
+
+      if (completeError) {
+        console.error('Error completing character:', completeError);
+        return;
+      }
+
+      // Update profile
+      const { error: updateError } = await supabase
+        .rpc('update_profile_after_completion', {
+          p_user_id: authUser.id,
+        });
+
+      if (updateError) {
+        console.error('Error updating profile:', updateError);
+        return;
+      }
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  }, [currentCharacter]);
+
+  const handleNextCharacter = useCallback(async () => {
+    setIsCharacterComplete(false);
+    
+    try {
+      const { data: { user: authUser } } = await supabase.auth.getUser();
+      
+      if (!authUser) return;
+
+      // Try to get next learning character
+      const { data: learningData } = await supabase
+        .from('user_character_progress')
+        .select('character_id, state, characters(id, character, pinyin, meaning)')
+        .eq('user_id', authUser.id)
+        .eq('state', 'learning')
+        .order('last_practiced', { ascending: true })
+        .limit(1)
+        .single();
+
+      if (learningData?.characters && Array.isArray(learningData.characters) && learningData.characters.length > 0) {
+        const char = learningData.characters[0];
+        setCurrentCharacter({
+          id: char.id,
+          character: char.character,
+          pinyin: char.pinyin,
+          meaning: char.meaning,
+          state: 'learning',
+        });
+      } else {
+        // If no learning characters, get the next new one
+        const { data: newCharData } = await supabase
+          .from('characters')
+          .select('id, character, pinyin, meaning')
+          .order('frequency_rank', { ascending: true })
+          .limit(1)
+          .single();
+
+        if (newCharData) {
+          setCurrentCharacter({
+            id: newCharData.id,
+            character: newCharData.character,
+            pinyin: newCharData.pinyin,
+            meaning: newCharData.meaning,
+            state: 'new',
+          });
+        }
+      }
+
+      // Refresh user stats
+      const { data: profileData } = await supabase
+        .from('user_profile')
+        .select('username, level, mastered, learning, streak')
+        .eq('user_id', authUser.id)
+        .single();
+
+      if (profileData) {
+        setUser({
+          name: profileData.username || 'Learner',
+          level: profileData.level,
+          mastered: profileData.mastered,
+          learning: profileData.learning,
+        });
+        setStreak(profileData.streak);
+      }
+    } catch (error) {
+      console.error('Error:', error);
+    }
   }, []);
 
   const handleMistake = useCallback((data: any) => {
@@ -145,6 +285,7 @@ export default function Dashboard() {
 
               <div className="bg-gray-100 dark:bg-slate-700 rounded-xl p-4 sm:p-6 md:p-8 flex items-center justify-center mb-4 sm:mb-6 overflow-x-auto">
                 <HanziCanvas 
+                  key={currentCharacter.id}
                   character={currentCharacter.character}
                   onComplete={handleCharacterComplete}
                   onMistake={handleMistake}
@@ -154,6 +295,7 @@ export default function Dashboard() {
 
               <div className="flex gap-4">
                 <button 
+                  onClick={handleNextCharacter}
                   disabled={!isCharacterComplete}
                   className={`flex-1 px-6 sm:px-8 py-3 sm:py-4 font-bold rounded-lg transition text-sm sm:text-base ${
                     isCharacterComplete 
