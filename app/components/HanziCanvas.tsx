@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import HanziWriter from 'hanzi-writer';
 
 interface HanziCanvasProps {
@@ -8,18 +8,21 @@ interface HanziCanvasProps {
   onComplete?: (data: any) => void;
   onMistake?: (data: any) => void;
   onCorrectStroke?: (data: any) => void;
+  showOutlineDefault?: boolean;
 }
 
 export default function HanziCanvas({ 
   character, 
   onComplete, 
   onMistake, 
-  onCorrectStroke 
+  onCorrectStroke,
+  showOutlineDefault = false 
 }: HanziCanvasProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const writerRef = useRef<any>(null);
   const isCompletedRef = useRef(false);
-  const [canvasSize, setCanvasSize] = React.useState(320);
+  const [canvasSize, setCanvasSize] = useState(320);
+  const [showOutline, setShowOutline] = useState(showOutlineDefault);
 
   // Update canvas size based on screen width
   React.useEffect(() => {
@@ -38,6 +41,22 @@ export default function HanziCanvas({
     window.addEventListener('resize', updateSize);
     return () => window.removeEventListener('resize', updateSize);
   }, []);
+
+  // Toggle outline visibility
+  const handleToggleOutline = () => {
+    setShowOutline(prev => !prev);
+  };
+
+  // Update outline when toggled
+  useEffect(() => {
+    if (writerRef.current) {
+      if (showOutline) {
+        writerRef.current.showOutline();
+      } else {
+        writerRef.current.hideOutline();
+      }
+    }
+  }, [showOutline]);
 
   useEffect(() => {
     if (!containerRef.current || !character) return;
@@ -61,7 +80,7 @@ export default function HanziCanvas({
       height: canvasSize,
       padding: 20,
       showCharacter: false,
-      showOutline: true,
+      showOutline: showOutline,
       strokeColor: '#d82d2d',
       outlineColor: '#ddd',
       drawingColor: '#333',
@@ -112,12 +131,24 @@ export default function HanziCanvas({
         className="border-2 border-dashed border-slate-300 dark:border-slate-600 rounded-xl bg-white dark:bg-slate-700 w-full flex items-center justify-center"
         style={{ minHeight: `${canvasSize}px` }}
       />
-      <button
-        onClick={handleReset}
-        className="px-4 sm:px-6 py-2 text-sm sm:text-base border-2 border-slate-300 dark:border-slate-600 text-slate-700 dark:text-slate-200 font-bold rounded-lg hover:bg-slate-100 dark:hover:bg-slate-700 transition"
-      >
-        Reset
-      </button>
+      <div className="flex gap-2 sm:gap-3">
+        <button
+          onClick={handleToggleOutline}
+          className={`px-4 sm:px-6 py-2 text-sm sm:text-base border-2 font-bold rounded-lg transition ${
+            showOutline 
+              ? 'border-red-500 text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-900/30' 
+              : 'border-slate-300 dark:border-slate-600 text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-700'
+          }`}
+        >
+          {showOutline ? 'Hide Outline' : 'Show Outline'}
+        </button>
+        <button
+          onClick={handleReset}
+          className="px-4 sm:px-6 py-2 text-sm sm:text-base border-2 border-slate-300 dark:border-slate-600 text-slate-700 dark:text-slate-200 font-bold rounded-lg hover:bg-slate-100 dark:hover:bg-slate-700 transition"
+        >
+          Reset
+        </button>
+      </div>
     </div>
   );
 }
