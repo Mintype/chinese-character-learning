@@ -4,7 +4,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { supabase } from '../lib/supabaseClient';
 import HanziCanvas from '../components/HanziCanvas';
 
-type LearningMode = 'menu' | 'new' | 'review' | 'select' | 'practice';
+type LearningMode = 'menu' | 'new' | 'review' | 'select' | 'practice' | 'finished';
 
 export default function Learn() {
   const [user, setUser] = useState({ name: 'Learner', level: 1, mastered: 0, learning: 0 });
@@ -15,6 +15,7 @@ export default function Learn() {
   const [currentCharacterIndex, setCurrentCharacterIndex] = useState(0);
   const [selectedCharacters, setSelectedCharacters] = useState<any[]>([]);
   const [isCharacterComplete, setIsCharacterComplete] = useState(false);
+  const [practicedCharacters, setPracticedCharacters] = useState<any[]>([]);
 
   useEffect(() => {
     const fetchUserStats = async () => {
@@ -199,11 +200,24 @@ export default function Learn() {
       setCurrentCharacterIndex(currentCharacterIndex + 1);
       setIsCharacterComplete(false);
     } else {
-      // End of practice session
-      setMode('menu');
-      setCharacters([]);
-      setSelectedCharacters([]);
+      // End of practice session - show finished screen
+      setPracticedCharacters([...characters]);
+      setMode('finished');
     }
+  };
+
+  const handleRepeatPractice = () => {
+    setCharacters([...practicedCharacters]);
+    setCurrentCharacterIndex(0);
+    setIsCharacterComplete(false);
+    setMode('practice');
+  };
+
+  const handleBackToMenu = () => {
+    setMode('menu');
+    setCharacters([]);
+    setSelectedCharacters([]);
+    setPracticedCharacters([]);
   };
 
   if (loading) {
@@ -376,6 +390,32 @@ export default function Learn() {
                   {currentCharacterIndex === characters.length - 1 ? 'Finish' : 'Next Character'}
                 </button>
               </div>
+            </div>
+          </div>
+        )}
+
+        {/* Finished Mode */}
+        {mode === 'finished' && (
+          <div className="bg-white dark:bg-slate-800 rounded-2xl p-6 sm:p-8 md:p-12 shadow-xl text-center">
+            <div className="text-6xl sm:text-7xl md:text-8xl mb-4 sm:mb-6">🎉</div>
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-3 sm:mb-4">Great job!</h2>
+            <p className="text-base sm:text-lg text-slate-600 dark:text-slate-400 mb-6 sm:mb-8">
+              You finished practicing {practicedCharacters.length} character{practicedCharacters.length !== 1 ? 's' : ''}!
+            </p>
+            
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center max-w-md mx-auto">
+              <button
+                onClick={handleRepeatPractice}
+                className="flex-1 px-6 py-3 sm:py-4 text-sm sm:text-base bg-red-600 text-white font-bold rounded-lg hover:bg-red-700 transition"
+              >
+                🔄 Repeat Practice
+              </button>
+              <button
+                onClick={handleBackToMenu}
+                className="flex-1 px-6 py-3 sm:py-4 text-sm sm:text-base border-2 border-red-600 text-red-600 dark:text-red-400 dark:border-red-400 font-bold rounded-lg hover:bg-red-50 dark:hover:bg-slate-700 transition"
+              >
+                Back to Menu
+              </button>
             </div>
           </div>
         )}
