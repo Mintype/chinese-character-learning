@@ -9,6 +9,7 @@ interface HanziCanvasProps {
   onMistake?: (data: any) => void;
   onCorrectStroke?: (data: any) => void;
   showOutlineDefault?: boolean;
+  size?: number;
 }
 
 export default function HanziCanvas({ 
@@ -16,7 +17,8 @@ export default function HanziCanvas({
   onComplete, 
   onMistake, 
   onCorrectStroke,
-  showOutlineDefault = false 
+  showOutlineDefault = false,
+  size 
 }: HanziCanvasProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const writerRef = useRef<any>(null);
@@ -24,8 +26,13 @@ export default function HanziCanvas({
   const [canvasSize, setCanvasSize] = useState(320);
   const [showOutline, setShowOutline] = useState(showOutlineDefault);
 
-  // Update canvas size based on screen width
+  // Update canvas size based on screen width or use provided size
   React.useEffect(() => {
+    if (size) {
+      setCanvasSize(size);
+      return;
+    }
+    
     const updateSize = () => {
       const width = window.innerWidth;
       if (width < 640) {
@@ -40,7 +47,7 @@ export default function HanziCanvas({
     updateSize();
     window.addEventListener('resize', updateSize);
     return () => window.removeEventListener('resize', updateSize);
-  }, []);
+  }, [size]);
 
   // Toggle outline visibility
   const handleToggleOutline = () => {

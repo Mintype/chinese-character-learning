@@ -16,6 +16,20 @@ export default function Learn() {
   const [selectedCharacters, setSelectedCharacters] = useState<any[]>([]);
   const [isCharacterComplete, setIsCharacterComplete] = useState(false);
   const [practicedCharacters, setPracticedCharacters] = useState<any[]>([]);
+  const [isCanvasExpanded, setIsCanvasExpanded] = useState(false);
+  const [expandedSize, setExpandedSize] = useState(400);
+
+  // Update expanded canvas size on resize
+  useEffect(() => {
+    const updateExpandedSize = () => {
+      const size = Math.min(window.innerWidth - 80, window.innerHeight - 250, 500);
+      setExpandedSize(Math.max(size, 280));
+    };
+    
+    updateExpandedSize();
+    window.addEventListener('resize', updateExpandedSize);
+    return () => window.removeEventListener('resize', updateExpandedSize);
+  }, []);
 
   useEffect(() => {
     const fetchUserStats = async () => {
@@ -368,13 +382,24 @@ export default function Learn() {
 
               {/* Canvas */}
               <div className="flex flex-col">
-                <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mb-2 sm:mb-4 font-semibold">Draw the character below:</p>
-                <div className="bg-gray-100 dark:bg-slate-700 rounded-xl p-3 sm:p-4 flex-1 flex items-center justify-center mb-4 sm:mb-6">
+                <div className="flex justify-between items-center mb-2 sm:mb-4">
+                  <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 font-semibold">Draw the character below:</p>
+                  <button
+                    onClick={() => setIsCanvasExpanded(!isCanvasExpanded)}
+                    className="text-xs sm:text-sm px-3 py-1 bg-slate-200 dark:bg-slate-600 text-slate-700 dark:text-slate-200 rounded-lg hover:bg-slate-300 dark:hover:bg-slate-500 transition"
+                  >
+                    {isCanvasExpanded ? '⬜ Minimize' : '⬛ Expand'}
+                  </button>
+                </div>
+                <div className={`bg-gray-100 dark:bg-slate-700 rounded-xl p-3 sm:p-4 flex items-center justify-center mb-4 sm:mb-6 transition-all duration-300 ${
+                  isCanvasExpanded ? 'min-h-[70vh]' : 'flex-1'
+                }`}>
                   <HanziCanvas 
                     character={currentCharacter.character}
                     onComplete={handleCharacterComplete}
                     onMistake={() => console.log('Mistake')}
                     onCorrectStroke={() => console.log('Correct')}
+                    size={isCanvasExpanded ? expandedSize : undefined}
                   />
                 </div>
 
