@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { supabase } from '../lib/supabaseClient';
 import HanziCanvas from '../components/HanziCanvas';
@@ -25,7 +25,7 @@ interface StudySetCharacter {
   character_id: string | null;
 }
 
-export default function Learn() {
+function LearnContent() {
   const searchParams = useSearchParams();
   const [user, setUser] = useState({ name: 'Learner', level: 1, mastered: 0, learning: 0 });
   const [streak, setStreak] = useState(0);
@@ -1078,5 +1078,13 @@ export default function Learn() {
         )}
       </div>
     </div>
+  );
+}
+
+export default function Learn() {
+  return (
+    <Suspense fallback={<div className="p-8">Loading...</div>}>
+      <LearnContent />
+    </Suspense>
   );
 }
