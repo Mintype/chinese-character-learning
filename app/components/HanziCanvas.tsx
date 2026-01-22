@@ -23,6 +23,7 @@ export default function HanziCanvas({
   const containerRef = useRef<HTMLDivElement>(null);
   const writerRef = useRef<any>(null);
   const isCompletedRef = useRef(false);
+  const prevCharacterRef = useRef<string | null>(null);
   const [canvasSize, setCanvasSize] = useState(320);
   const [showOutline, setShowOutline] = useState(showOutlineDefault);
 
@@ -65,13 +66,33 @@ export default function HanziCanvas({
     }
   }, [showOutline]);
 
+  // Store callbacks in refs to avoid re-running the effect when they change
+  const onCompleteRef = useRef(onComplete);
+  const onMistakeRef = useRef(onMistake);
+  const onCorrectStrokeRef = useRef(onCorrectStroke);
+
+  // Update refs when callbacks change
+  useEffect(() => {
+    onCompleteRef.current = onComplete;
+    onMistakeRef.current = onMistake;
+    onCorrectStrokeRef.current = onCorrectStroke;
+  }, [onComplete, onMistake, onCorrectStroke]);
+
   useEffect(() => {
     if (!containerRef.current || !character) return;
 
-    // If character was just completed, keep showing it
-    if (isCompletedRef.current) {
-      isCompletedRef.current = false;
+    // Check if this is the same character (only skip if completed and same character)
+    const isSameCharacter = prevCharacterRef.current === character;
+    
+    // If character was just completed AND it's the same character, keep showing it
+    if (isCompletedRef.current && isSameCharacter) {
       return;
+    }
+
+    // Reset completed state when switching to a new character
+    if (!isSameCharacter) {
+      isCompletedRef.current = false;
+      prevCharacterRef.current = character;
     }
 
     // Clear previous instance
@@ -100,14 +121,14 @@ export default function HanziCanvas({
       showHintAfterMisses: 2,
       highlightOnComplete: true,
       onMistake: (data: any) => {
-        onMistake?.(data);
+        onMistakeRef.current?.(data);
       },
       onCorrectStroke: (data: any) => {
-        onCorrectStroke?.(data);
+        onCorrectStrokeRef.current?.(data);
       },
       onComplete: (data: any) => {
         isCompletedRef.current = true;
-        onComplete?.(data);
+        onCompleteRef.current?.(data);
       },
     });
 
@@ -116,7 +137,7 @@ export default function HanziCanvas({
         writerRef.current.cancelQuiz();
       }
     };
-  }, [character, canvasSize, onComplete, onMistake, onCorrectStroke]);
+  }, [character, canvasSize]);
 
   const handleReset = () => {
     if (writerRef.current) {
