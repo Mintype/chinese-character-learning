@@ -22,6 +22,7 @@ export default function Navbar() {
   const navLinks = [
     { href: '/dashboard', label: 'Dashboard' },
     { href: '/learn', label: 'Learn' },
+    { href: '/traditional', label: 'Traditional' },
     { href: '/leaderboard', label: 'Leaderboard' },
     { href: '/profile', label: 'Profile' },
   ];
